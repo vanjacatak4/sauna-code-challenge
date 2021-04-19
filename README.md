@@ -70,20 +70,20 @@ Expected result:
 - Letters ```ACB```
 - Path as characters ```@---A---+|||C---+|+-B-x```
 
-### Map 4 - do not collect letters twice
+### Map 4 - do not collect a letter from the same location twice
 
 ```
     +--B--+
-    |   +-C-+
+    |   +-B-+
  @--A-+ | | |
-    | | +-+ D
+    | | +-+ A
     +-+     |
             x
 ```
 
 Expected result: 
-- Letters ```ABCD``` (*not* `AABCCD`)
-- Path as characters ```@--A-+|+-+|A|+--B--+C|+-+|+-C-+|D|x```
+- Letters ```ABBA``` (*not* `AABBBA`)
+- Path as characters ```@--A-+|+-+|A|+--B--+B|+-+|+-B-+|A|x```
 
 ### Map 5 - keep direction, even in a compact space
 
