@@ -14,15 +14,16 @@ Write a piece of code that takes ASCII map as an input and outputs the collected
     - Collected letters
     - Path as characters
 
-What we are looking for in the solution:
+What we are looking for in the solution (things which will bring you points ;)):
 
 - clean code
     - small methods/functions/classes
     - good naming
     - minimise code duplication
+    - separation of logic (e.g. walking around the map) and scaffolding (e.g. loading the map)
 - tests
-    - mandatory: acceptance tests with pasted examples from below
-    - bonus: microtests - small bits of logic should be tested separately (possible if clean code principles are observed, see above) ... for more on microtests see [this article](https://www.geepawhill.org/2020/06/12/microtest-tdd-more-definition)
+    - acceptance tests with pasted examples from below
+    - microtests - small bits of logic should be tested separately (possible if clean code principles are observed, see above) ... for more on microtests see [this article](https://www.geepawhill.org/2020/06/12/microtest-tdd-more-definition)
 
 ## Valid maps
 
@@ -73,30 +74,32 @@ Expected result:
 ### Map 4 - do not collect a letter from the same location twice
 
 ```
-    +--B--+
-    |   +-B-+
- @--A-+ | | |
-    | | +-+ A
-    +-+     |
-            x
+     +-O-N-+
+     |     |
+     |   +-I-+
+ @-G-O-+ | | |
+     | | +-+ E
+     +-+     S
+             |
+             x
 ```
 
 Expected result: 
-- Letters ```ABBA``` (*not* `AABBBA`)
-- Path as characters ```@--A-+|+-+|A|+--B--+B|+-+|+-B-+|A|x```
+- Letters ```GOONIES```
+- Path as characters ```@-G-O-+|+-+|O||+-O-N-+|I|+-+|+-I-+|ES|x```
 
 ### Map 5 - keep direction, even in a compact space
 
 ```
- +-B-+
- |  +C-+
-@A+ ++ D
+ +-L-+
+ |  +A-+
+@B+ ++ H
  ++    x
 ```
 
 Expected result: 
-- Letters ```ABCD```
-- Path as characters ```@A+++A|+-B-+C+++C-+Dx```
+- Letters ```BLAH```
+- Path as characters ```@B+++B|+-L-+A+++A-+Hx```
 
 ## Invalid maps:
 
@@ -161,3 +164,39 @@ Expected result: Error
 ```
 
 Expected result: Error
+
+### Map 11 - broken path
+
+```
+   @--A-+
+        |
+         
+        B-x
+```
+
+Expected result: Error
+
+### Map 12 - multiple starting paths
+
+```
+  -B-@-A-x
+```
+
+Expected result: Error
+
+### Map 13 - fake turn
+
+```
+  @-A-+-B-x
+```
+
+Expected result: Error
+
+
+## In the end, let's keep things simple
+
+- the only valid characters are the ones appearing in the example maps; anything else found must result in an error
+- turns can be letters or `+`
+- it doesn't matter what lays beyond `x` on the path
+
+Notice: Valid input examples are mostly jagged matrices (rows don't contain the same number of elements) so that's evidently OK.
