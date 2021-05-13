@@ -199,4 +199,4 @@ Expected result: Error
 - turns can be letters or `+`
 - it doesn't matter what lays beyond `x` on the path
 
-Notice: Valid input examples are mostly jagged matrices (rows don't contain the same number of elements) so that's evidently OK.
+Notice: Valid input examples are mostly jagged matrices (rows don't contain the same number of elements) so keep that in mind when loading data.
