@@ -195,7 +195,7 @@ Expected result: Error
 
 ## In the end, let's keep things simple
 
-- the only valid characters are the ones appearing in the example maps; anything else found must result in an error
+- the only valid characters are all uppercase letters (A-Z) and other characters appearing in the example maps; anything else found must result in an error
 - turns can be letters or `+`
 - it doesn't matter what lays beyond `x` on the path
 
