@@ -1,6 +1,6 @@
 # [Software Sauna](https://www.softwaresauna.com/) Code Challenge
 
-- Path following algorithm in ASCII Map
+- Follow a path in ASCII Map
 - Find the position of character `@`
 - Follow the path, stop when character `x` is reached
 
