@@ -221,4 +221,4 @@ Expected result: Error
 
 - the only valid characters are all uppercase letters (`A`-`Z`) and other characters appearing in the example maps; anything else found must result in an error
 - turns can be letters or `+`
-- input examples are jagged matrices - rows (lines) don't contain the same number of elements (characters): this is a valid form of input so keep that in mind when loading data
+- input examples are jagged matrices - rows (lines) don't contain the same number of elements (characters): this is a valid form of input so keep that in mind
