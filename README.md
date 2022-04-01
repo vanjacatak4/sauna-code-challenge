@@ -1,33 +1,41 @@
 # [Software Sauna](https://www.softwaresauna.com/) Code Challenge
 
-- Follow a path in ASCII Map
-- Find the position of character `@`
-- Follow the path, stop when character `x` is reached
+Follow a path of characters & collect letters:
 
-## Code Challenge
+- Start at the character `@`
+- Follow the path
+- Collect letters
+- Stop when you reach the character `x`
 
-Write a piece of code that takes ASCII map as an input and outputs the collected letters and the list of characters of the travelled path.
+## Assignment
 
-  - Input: 
-    - ASCII map (hard-coded, in a file, copied from a magic scroll - your choice)
-  - Output:
-    - Collected letters
-    - Path as characters
+Write a piece of code that takes a map of characters as an input and outputs the collected letters and the list of characters of the travelled path.
 
-What we are looking for in the solution (things which will bring you points ;)):
+Input:
 
-- clean code
-    - small methods/functions/classes
-    - good naming
-    - minimise code duplication
-    - separation of logic (e.g. walking around the map) and scaffolding (e.g. loading the map)
-- tests
-    - acceptance tests with pasted examples from below
-    - microtests - small bits of logic should be tested separately (possible if clean code principles are observed, see above) ... for more on microtests see [this article](https://www.geepawhill.org/2020/06/12/microtest-tdd-more-definition)
+- a map (2-dimensional array) of characters in a data format of your choice (can even be hard-coded as a global constant)
 
-## Valid maps
+Output:
 
-### Map 1 - a basic example
+- Collected letters
+- Path as characters
+
+## What we are looking for in the solution
+
+- readable code
+  - small methods/functions/classes
+  - good naming
+  - minimise code duplication
+  - separation of logic and scaffolding (e.g. walking around is separated from loading the map)
+- automated tests
+  - high-level tests (i.e. acceptance tests) which test that the program gives correct output for a given input, according to examples specified below
+  - unit tests which test small bits of logic separated from the rest of the program, e.g. advancing the current location based on the current direction
+
+## Specifications
+
+### Valid maps
+
+#### A basic example
 
 ```
   @---A---+
@@ -41,7 +49,7 @@ Expected result:
 - Letters ```ACB```
 - Path as characters ```@---A---+|C|+---+|+-B-x```
 
-### Map 2 - go straight through intersections
+#### Go straight through intersections
 
 ```
   @
@@ -57,7 +65,7 @@ Expected result:
 - Letters ```ABCD```
 - Path as characters ```@|A+---B--+|+--C-+|-||+---D--+|x```
 
-### Map 3 - letters may be found on turns
+#### Letters may be found on turns
 
 ```
   @---A---+
@@ -71,7 +79,7 @@ Expected result:
 - Letters ```ACB```
 - Path as characters ```@---A---+|||C---+|+-B-x```
 
-### Map 4 - do not collect a letter from the same location twice
+#### Do not collect a letter from the same location twice
 
 ```
      +-O-N-+
@@ -88,7 +96,7 @@ Expected result:
 - Letters ```GOONIES```
 - Path as characters ```@-G-O-+|+-+|O||+-O-N-+|I|+-+|+-I-+|ES|x```
 
-### Map 5 - keep direction, even in a compact space
+#### Keep direction, even in a compact space
 
 ```
  +-L-+
@@ -101,9 +109,21 @@ Expected result:
 - Letters ```BLAH```
 - Path as characters ```@B+++B|+-L-+A+++A-+Hx```
 
-## Invalid maps:
+#### Ignore stuff after end of path
 
-### Map 6 - no start
+```
+  @-A--+
+       |
+       +-B--x-C--D
+```
+
+Expected result: 
+- Letters ```AB```
+- Path as characters ```@-A--+|+-B--x```
+
+### Invalid maps
+
+#### Missing start character
 
 ```
      -A---+
@@ -115,7 +135,7 @@ Expected result:
 
 Expected result: Error
 
-### Map 7 - no end
+#### Missing end character
 
 ```
    @--A---+
@@ -127,7 +147,7 @@ Expected result: Error
 
 Expected result: Error
 
-### Map 8 - multiple starts
+#### Multiple starts
 
 ```
    @--A-@-+
@@ -137,21 +157,25 @@ Expected result: Error
       +---+
 ```
 
-Expected result: Error
-
-### Map 9 - multiple ends
-
 ```
    @--A---+
           |
-  x-Bx+   C
-      |   |
-      +---+
+          C
+          x
+      @-B-+
+```
+
+```
+   @--A--x
+
+  x-B-+
+      |
+      @
 ```
 
 Expected result: Error
 
-### Map 10 - T forks
+#### Fork in path
 
 ```
         x-B
@@ -165,7 +189,7 @@ Expected result: Error
 
 Expected result: Error
 
-### Map 11 - broken path
+#### Broken path
 
 ```
    @--A-+
@@ -176,15 +200,15 @@ Expected result: Error
 
 Expected result: Error
 
-### Map 12 - multiple starting paths
+#### Multiple starting paths
 
 ```
-  -B-@-A-x
+  x-B-@-A-x
 ```
 
 Expected result: Error
 
-### Map 13 - fake turn
+#### Fake turn
 
 ```
   @-A-+-B-x
@@ -193,10 +217,8 @@ Expected result: Error
 Expected result: Error
 
 
-## In the end, let's keep things simple
+## Notes
 
-- the only valid characters are all uppercase letters (A-Z) and other characters appearing in the example maps; anything else found must result in an error
+- the only valid characters are all uppercase letters (`A`-`Z`) and other characters appearing in the example maps; anything else found must result in an error
 - turns can be letters or `+`
-- it doesn't matter what lays beyond `x` on the path
-
-Notice: Valid input examples are mostly jagged matrices (rows don't contain the same number of elements) so keep that in mind when loading data.
+- input examples are jagged matrices - rows (lines) don't contain the same number of elements (characters): this is a valid form of input so keep that in mind when loading data
