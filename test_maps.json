@@ -1,0 +1,123 @@
+{
+  "valid_maps": [
+    {
+      "map": [
+        " @--A---+",
+        "        |",
+        "x-B-+   C",
+        "    |   |",
+        "    +---+"
+      ],
+      "path": "@--A---+|C|+---+|+-B-x",
+      "msg": "ACB"
+    },
+    {
+      "map": [
+        " +-L-+",
+        " |  +A-+",
+        "@B+ ++ H",
+        " ++    x"
+      ],
+      "path": "@B+++B|+-L-+A+++A-+Hx",
+      "msg": "BLAH"
+    }
+  ],
+  "multiple_start_character_maps": [
+    {
+      "map": [
+        "@--L-+",
+        "     |",
+        "     @"
+      ],
+      "path": false,
+      "msg": false
+    },
+        {
+      "map": [
+        "@--L-+",
+        "     |",
+        "   @-+"
+      ],
+      "path": false,
+      "msg": false
+    }
+  ],
+  "missing_end_character_maps": [
+    {
+      "map": [
+        "@--L-+",
+        "     |",
+        "     K"
+      ],
+      "path": false,
+      "msg": false
+    }
+  ],
+  "invalid_character_maps": [
+    {
+      "map": [
+        "p--L-+",
+        "     |",
+        "     K"
+      ],
+      "path": false,
+      "msg": false
+    }
+  ],
+  "broken_path_maps": [
+    {
+      "map": [
+        "@--L-+",
+        "     |",
+        " x --+"
+      ],
+      "path": false,
+      "msg": false
+    }
+  ],
+  "fork_in_path_maps": [
+    {
+      "map": [
+        "     x-B",
+        "       |",
+        "@--A---+",
+        "       |",
+        "       C",
+        "  x+   |",
+        "   |   |",
+        "   +---+"
+      ],
+      "path": false,
+      "msg": false
+    },
+    {
+      "map": [
+        "@--L-+",
+        "|    |",
+        "+x---+"
+      ],
+      "path": false,
+      "msg": false
+    }
+  ],
+  "fake_turn_maps": [
+    {
+      "map": [
+        "@--L-+",
+        "     |",
+        " x-+-+"
+      ],
+      "path": false,
+      "msg": false
+    },
+    {
+      "map": [
+        "@--+-L",
+        "   | |",
+        " x-+-+"
+      ],
+      "path": false,
+      "msg": false
+    }
+  ]
+}
