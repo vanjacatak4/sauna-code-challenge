@@ -1,12 +1,9 @@
-# [Software Sauna](https://www.softwaresauna.com/) Code Challenge
-
-
 ## How to run
 
 Have python installed
 
 - run program with command: `python3 main.py`
-- to run unit tests, use command; `python3 -m unittest`
+- to run unit tests, use command: `python3 -m unittest`
 
 Follow a path of characters & collect letters:
 

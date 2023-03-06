@@ -25,6 +25,9 @@ class TestPathFinder(unittest.TestCase):
                 if typeof_map == 'multiple_start_character_maps':
                     error = exceptions.MultipleStartingCharacterException
 
+                if typeof_map == 'missing_start_character_maps':
+                    error = exceptions.MissingStartingCharacterException
+
                 elif typeof_map == 'missing_end_character_maps':
                     error = exceptions.MissingEndingCharacterException
 

@@ -2,6 +2,16 @@
   "valid_maps": [
     {
       "map": [
+        "   +-B--+",
+        "x-------+",
+        "   |    ",
+        "@--A"
+      ],
+      "path": "@--A|-+-B--++-------x",
+      "msg": "AB"
+    },
+    {
+      "map": [
         " @--A---+",
         "        |",
         "x-B-+   C",
@@ -105,11 +115,33 @@
       "path": false,
       "msg": false
     },
-        {
+    {
       "map": [
         "@--L-+",
         "     |",
         "   @-+"
+      ],
+      "path": false,
+      "msg": false
+    },
+    {
+      "map": [
+        "@--A--x",
+        " ",
+        "x-B-+",
+        "    |",
+        "    @"
+      ],
+      "path": false,
+      "msg": false
+    }
+  ],
+  "missing_start_character_maps": [
+    {
+      "map": [
+        " --L-+",
+        "     |",
+        "     x"
       ],
       "path": false,
       "msg": false

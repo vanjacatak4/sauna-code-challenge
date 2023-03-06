@@ -85,42 +85,64 @@ class PathFinder(object):
             if direction == self.TOP:
                 if row > 0 and col < len(self._character_matrix[row - 1]) \
                         and self._character_matrix[row - 1][col] != " ":
+                    
                     top_char = self._character_matrix[row - 1][col]
+
                     if top_char in self.UP_DOWN_CHARACTERS:
+
                         valid_moves.append([self.TOP, (row - 1, col)])
-                    elif top_char == self.LEFT_RIGHT:
-                        if row > 1 and col <= len(self._character_matrix[row - 2]) \
+
+                    elif top_char == self.LEFT_RIGHT \
+                                and row > 1 \
+                                and col <= len(self._character_matrix[row - 2]) \
                                 and self._character_matrix[row - 2][col] in self.UP_DOWN_CHARACTERS:
+                            
                             valid_moves.append([self.TOP, (row - 2, col)])
 
             elif direction == self.BOTTOM:
                 if row < len(self._character_matrix) - 1 and col < len(self._character_matrix[row + 1]) \
                         and self._character_matrix[row + 1][col] != " ":
+                    
                     bottom_char = self._character_matrix[row + 1][col]
+
                     if bottom_char in self.UP_DOWN_CHARACTERS:
+
                         valid_moves.append([self.BOTTOM, (row + 1, col)])
-                    elif bottom_char == self.LEFT_RIGHT:
-                        if row < len(self._character_matrix) - 2 \
+
+                    elif bottom_char == self.LEFT_RIGHT \
+                                and row < len(self._character_matrix) - 2 \
                                 and self._character_matrix[row + 2][col] in self.UP_DOWN_CHARACTERS:
+                            
                             valid_moves.append([self.BOTTOM, (row + 2, col)])
 
             elif direction == self.LEFT:
                 if col > 0 and self._character_matrix[row][col - 1] != " ":
+
                     left_char = self._character_matrix[row][col - 1]
+
                     if left_char in self.LEFT_RIGHT_CHARACTERS:
+
                         valid_moves.append([self.LEFT, (row, col - 1)])
-                    elif left_char == self.UP_DOWN:
-                        if col > 1 and self._character_matrix[row][col - 2] in self.LEFT_RIGHT_CHARACTERS:
+
+                    elif left_char == self.UP_DOWN \
+                                and col > 1 \
+                                and self._character_matrix[row][col - 2] in self.LEFT_RIGHT_CHARACTERS:
+                            
                             valid_moves.append([self.LEFT, (row, col - 2),])
 
             elif direction == self.RIGHT:
                 if col < len(self._character_matrix[row]) - 1 and self._character_matrix[row][col + 1] != " ":
+
                     right_char = self._character_matrix[row][col + 1]
+
                     if right_char in self.LEFT_RIGHT_CHARACTERS:
+
                         valid_moves.append([self.RIGHT, (row, col + 1)])
-                    elif right_char == self.UP_DOWN:
-                        if col < len(self._character_matrix[row]) - 2 and \
-                                self._character_matrix[row][col + 2] in self.LEFT_RIGHT_CHARACTERS:
+
+                    elif right_char == self.UP_DOWN \
+                                and col < len(self._character_matrix[row]) - 2 \
+                                and self._character_matrix[row][col + 2] in self.LEFT_RIGHT_CHARACTERS:
+                            
                             valid_moves.append([self.RIGHT, (row, col + 2)])
 
         return valid_moves
