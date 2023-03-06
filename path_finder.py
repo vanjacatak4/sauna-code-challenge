@@ -111,7 +111,7 @@ class PathFinder(object):
                         valid_moves.append([self.LEFT, (row, col - 1)])
                     elif left_char == self.UP_DOWN:
                         if col > 1 and self._character_matrix[row][col - 2] in self.LEFT_RIGHT_CHARACTERS:
-                            valid_moves.append([self.LEFT, (row, col - 2)])
+                            valid_moves.append([self.LEFT, (row, col - 2),])
 
             elif direction == self.RIGHT:
                 if col < len(self._character_matrix[row]) - 1 and self._character_matrix[row][col + 1] != " ":
@@ -161,7 +161,13 @@ class PathFinder(object):
 
             self._path = self._path + character
             if len(valid_moves) == 1:
-                direction, (row, col) = valid_moves[0]
+                new_direction, (new_row, new_col) = valid_moves[0]
+                # If difference between row/col is greater than 1, intersection was crossed - add appropriate char
+                if abs(new_row - row) == 2:
+                    self._path = self._path + self.LEFT_RIGHT
+                elif abs(new_col - col) == 2:
+                    self._path = self._path + self.UP_DOWN
+                direction, (row, col) = new_direction, (new_row, new_col)
                 continue
             elif len(valid_moves) == 0:
                 raise exceptions.BrokenPathException
