@@ -67,5 +67,6 @@ class TestPathFinder(unittest.TestCase):
                             self.finder.find_path()
 
 
+
 if __name__ == '__main__':
     unittest.main()

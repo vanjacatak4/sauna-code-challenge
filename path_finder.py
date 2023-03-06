@@ -20,16 +20,16 @@ class PathFinder(object):
     VERTICAL_DIRECTION = 1
     HORIZONTAL_DIRECTION = 2
 
-    TOP = 'TOP'
-    BOTTOM = 'BOTTOM'
+    UP = 'UP'
+    DOWN = 'DOWN'
     RIGHT = 'RIGHT'
     LEFT = 'LEFT'
 
     OPPOSITE_DIRECTION = {
-        TOP: [RIGHT, LEFT],
-        BOTTOM: [RIGHT, LEFT],
-        RIGHT: [TOP, BOTTOM],
-        LEFT: [TOP, BOTTOM]
+        UP: [RIGHT, LEFT],
+        DOWN: [RIGHT, LEFT],
+        RIGHT: [UP, DOWN],
+        LEFT: [UP, DOWN]
     }
 
     def __init__(self, character_matrix):
@@ -78,11 +78,11 @@ class PathFinder(object):
 
     def _get_neighbors(self, row, col, directions=None):
         """Method for fetching possible moves, based on *directions* input"""
-        directions = directions or [self.TOP, self.BOTTOM, self.LEFT, self.RIGHT]
+        directions = directions or [self.UP, self.DOWN, self.LEFT, self.RIGHT]
         valid_moves = []
         for direction in directions:
 
-            if direction == self.TOP:
+            if direction == self.UP:
                 if row > 0 and col < len(self._character_matrix[row - 1]) \
                         and self._character_matrix[row - 1][col] != " ":
                     
@@ -90,16 +90,16 @@ class PathFinder(object):
 
                     if top_char in self.UP_DOWN_CHARACTERS:
 
-                        valid_moves.append([self.TOP, (row - 1, col)])
+                        valid_moves.append([self.UP, (row - 1, col)])
 
                     elif top_char == self.LEFT_RIGHT \
                                 and row > 1 \
                                 and col <= len(self._character_matrix[row - 2]) \
                                 and self._character_matrix[row - 2][col] in self.UP_DOWN_CHARACTERS:
                             
-                            valid_moves.append([self.TOP, (row - 2, col)])
+                            valid_moves.append([self.UP, (row - 2, col)])
 
-            elif direction == self.BOTTOM:
+            elif direction == self.DOWN:
                 if row < len(self._character_matrix) - 1 and col < len(self._character_matrix[row + 1]) \
                         and self._character_matrix[row + 1][col] != " ":
                     
@@ -107,13 +107,13 @@ class PathFinder(object):
 
                     if bottom_char in self.UP_DOWN_CHARACTERS:
 
-                        valid_moves.append([self.BOTTOM, (row + 1, col)])
+                        valid_moves.append([self.DOWN, (row + 1, col)])
 
                     elif bottom_char == self.LEFT_RIGHT \
                                 and row < len(self._character_matrix) - 2 \
                                 and self._character_matrix[row + 2][col] in self.UP_DOWN_CHARACTERS:
                             
-                            valid_moves.append([self.BOTTOM, (row + 2, col)])
+                            valid_moves.append([self.DOWN, (row + 2, col)])
 
             elif direction == self.LEFT:
                 if col > 0 and self._character_matrix[row][col - 1] != " ":
@@ -197,13 +197,8 @@ class PathFinder(object):
                 raise exceptions.ForkInPathException
 
         if self._solved:
-            final_message = ""
-            message_set = set()
-            for item in message:
-                if item not in message_set:
-                    final_message += item[0]
-                    message_set.add(item)
-
-            return self._path, final_message
+            # Creates final messages list by removing duplicates and adding only letter from the tuple
+            final_message = [item[0] for item in list(dict.fromkeys(message))]
+            return self._path, ''.join(final_message)
 
         return False
