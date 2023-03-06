@@ -3,6 +3,48 @@ import exceptions
 
 
 class PathFinder(object):
+    """
+    A class that solves a map of characters
+
+    
+    Attributes:
+    -----------
+    character_matrix: list of str
+        The character matrix containing characters representing the map.
+
+
+    Private Attributes (should not be accessed or modified directly):
+    -----------------------------------------------------------------
+    _starting_position: tuple of int
+        The starting coordinates on the map where PathFinder will begin its solving
+
+    _path: str
+        This string is updated on every new step, so the full path can be returned at the end
+
+    _solved: bool
+        Boolean value indicating if the map is solved or no.
+
+
+    Methods:
+    -------
+    find_path()
+        Finds the path for the map added during initialization
+
+
+    Example usage:
+    --------------
+    >>> character_matrix = [
+    ...     "@--A--C--B",
+    ...     "         |",
+    ...     "         |",
+    ...     "         x",
+    ... ]
+    >>> try:
+    ...     pathfinder = PathFinder(character_matrix)
+    ...     path, msg = pathfinder.find_path()
+    ...except exceptions.PathFinderException as pathFinderException:
+    ...     print(pathFinderException)
+    """
 
     START = "@"
     END = "x"
@@ -33,19 +75,43 @@ class PathFinder(object):
     }
 
     def __init__(self, character_matrix):
+        """
+        Initializes a PathFinder object with the passed character matrix.
+        Performs a validation of passed map, and adds starting position.
+
+
+        Parameters:
+        -----------
+        character_matrix: list of strings
+            The character matrix containing characters representing the map.
+
+        Raises:
+        -------
+        MultipleStartingCharacterException
+            Exception raised if the map has multiple starting characters '@'
+
+        MissingStartingCharacterException
+            Exception raised if the map is missing starting character '@'
+
+        MissingEndingCharacterException
+            Exception raised if the map is missing ending character 'x'
+
+        InvalidCharacterException
+            Exception raised if the map contains invalid characters.
+        """
+
         self._character_matrix = self._validate_map(character_matrix)
         self._starting_position = self._find_starting_position()
 
         self._path = ""
-        self._message = ""
         self._solved = False
 
     def _validate_map(self, character_matrix):
         """Validates the map"""
         start_character_exists = False
         end_character_exists = False
-        for row, items in enumerate(character_matrix):
-            for col, character in enumerate(items):
+        for row in character_matrix:
+            for character in row:
 
                 if character == self.START:
                     if not start_character_exists:
@@ -77,7 +143,11 @@ class PathFinder(object):
                 return row, col
 
     def _get_neighbors(self, row, col, directions=None):
-        """Method for fetching possible moves, based on *directions* input"""
+        """
+        Method for fetching possible moves, based on *directions* input.
+        If the directions input is missing, all possibles directions are fetched
+        """
+
         directions = directions or [self.UP, self.DOWN, self.LEFT, self.RIGHT]
         valid_moves = []
         for direction in directions:
@@ -148,6 +218,33 @@ class PathFinder(object):
         return valid_moves
 
     def find_path(self):
+        """
+        Find the path of map passed as a input during init or raise an error.
+
+        
+        Parameters:
+        -----------
+        character_matrix: list of strings
+            The character matrix containing characters representing the map.
+
+        
+        Returns:
+        --------
+        Tuple[str, str]
+            A tuple of traversed path and final message from traversed letters.
+
+        
+        Raises:
+        -------
+        FakeTurnException
+            Exception raised if the turn character '+' doesn't turn, but continues in the same direction
+
+        BrokenPathException
+            Exception raised if the PathFinder object cannot find the next move
+
+        ForkInPathException
+            Exception raised if there are more than one possible moves
+        """
         row, col = self._starting_position
         direction = None
         message = []
@@ -182,6 +279,7 @@ class PathFinder(object):
                 break
 
             self._path = self._path + character
+
             if len(valid_moves) == 1:
                 new_direction, (new_row, new_col) = valid_moves[0]
                 # If difference between row/col is greater than 1, intersection was crossed - add appropriate char
@@ -191,8 +289,10 @@ class PathFinder(object):
                     self._path = self._path + self.UP_DOWN
                 direction, (row, col) = new_direction, (new_row, new_col)
                 continue
+
             elif len(valid_moves) == 0:
                 raise exceptions.BrokenPathException
+            
             else:
                 raise exceptions.ForkInPathException
 
